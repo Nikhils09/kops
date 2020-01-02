@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: "ingress1"
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+  labels:
+    app: ingress
+spec:
+   
+  rules:   
+  - http:
+      paths:
+              #- path: /
+              # backend:
+              #serviceName: custom
+              #servicePort: 80 
+      - path: /
+        backend:
+          serviceName: test
+          servicePort: 5000
+      - path: /test
+        backend:
+          serviceName: test
+          servicePort: 5000
+      
+
+
+

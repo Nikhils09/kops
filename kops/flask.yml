@@ -1,0 +1,67 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: "2019-12-27T14:27:09Z"
+  generation: 1
+  labels:
+    run: test
+  name: test
+  namespace: default
+  resourceVersion: "1025"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/test
+  uid: 70ba3505-9569-44dd-a8a1-fac098e10cb0
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      run: test
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: test
+    spec:
+      hostNetwork: true
+      
+      containers:
+      - image: manas28/test_repo:11111
+        imagePullPolicy: IfNotPresent
+        name: test
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        ports:
+        - containerPort: 5000
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2019-12-27T14:27:28Z"
+    lastUpdateTime: "2019-12-27T14:27:28Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2019-12-27T14:27:09Z"
+    lastUpdateTime: "2019-12-27T14:27:28Z"
+    message: ReplicaSet "test-867f65f588" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

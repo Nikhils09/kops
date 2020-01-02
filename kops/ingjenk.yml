@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingu
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+  labels:
+    app: ingu
+
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: av
+          servicePort: 8080
+      - path: /jenk
+        backend:
+          serviceName: av
+          servicePort: 8080
+

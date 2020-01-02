@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghost
+  labels:
+    app: name
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: name
+  template:
+    metadata:
+      labels:
+        app: name
+    spec:
+      containers:
+      - name: ghost
+        image: ghost:3.2.0
+        ports:
+        - containerPort: 2368
+        volumeMounts:
+        - name: vol
+          mountPath: /var/lib/ghost/content
+      volumes:
+      - name: vol 
+        persistentVolumeClaim:
+          claimName: pvc1
+

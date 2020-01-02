@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenk
+  labels:
+    app: jenk
+spec:
+     
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenk
+
+  template:
+    metadata:
+      labels:
+        app: jenk
+    spec:    
+      containers:
+      - name: jenkins
+        image: jenkins/jenkins
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: vol
+          mountPath: /var/jenkins_home
+      volumes:
+      - name: vol
+        persistentVolumeClaim:
+          claimName: claim
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 0
+
+    
